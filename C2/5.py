@@ -1,3 +1,7 @@
+# R-2.5 Use the techniques of Section 1.7 to revise the charge and make payment
+# methods of the CreditCard class to ensure that the caller sends a number
+# as a parameter.
+
 import code
 class CreditCard:
     """A consumer credit card."""
@@ -40,15 +44,24 @@ class CreditCard:
         """Charge given price to the card, assuming sufficient credit limit.
         Return True if charge was processed; False if charge was denied.
         """
-        if price + self._balance > self._limit:  # if charge would exceed limit,
-            return False  # cannot accept charge
-        else:
-            self._balance += price
-            return True
+        try:
+            price = int(price)
+            if price + self._balance > self._limit:  # if charge would exceed limit,
+                print "Charge denied. Reached limit."
+                return False  # cannot accept charge
+            else:
+                self._balance += price
+                print "Charge accepted"
+                #return true
+        except(ValueError, TypeError) as e:
+            print("You've entered a non numeric value. Please try again.\n Error Code -> '%s'" % e)
 
     def make_payment(self, amount):
         """Process customer payment that reduces balance."""
-        self._balance -= amount
+        try:
+            self._balance -= float(amount)
+        except ValueError as e:
+            print("You've entered a non numeric value. Please try again.\n Error Code -> '%s'" % e)
 
 #cc is a constructor, as it calls to the <__init__> function
 cc = CreditCard( 'John Doe', '1st Bank' , '5391 0375 9387 5309' , 1000)

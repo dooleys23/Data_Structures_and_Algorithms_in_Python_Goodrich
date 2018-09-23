@@ -10,8 +10,10 @@ class result():
         self._min = min
 
 x= result(None,None)
+
 def find_max_min(number):
     # print'step'
+    print number
     if number == 0:
         print 'Completed'
     else:
